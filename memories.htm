@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Our Memories</title>
+<link rel="stylesheet" href="CSS/style.css">
+</head>
+<body>
+
+<nav class="navbar">
+  <a href="index.html">🏠 Home</a>
+  <a href="gifts.html">🎁 Gifts</a>
+  <a href="memories.html">📸 Memories</a>
+</nav>
+
+<section class="memories-section">
+  <h1 class="title-pop">Our Memories Together</h1>
+
+  <div class="gallery">
+    <img src="Images/photo1.jpg" alt="Memory 1" class="fade-in">
+    <img src="Images/photo2.jpg" alt="Memory 2" class="fade-in">
+    <img src="Images/photo3.jpg" alt="Memory 3" class="fade-in">
+    <img src="Images/photo4.jpg" alt="Memory 4" class="fade-in">
+    <img src="Images/photo5.jpg" alt="Memory 5" class="fade-in">
+    <img src="Images/photo6.jpg" alt="Memory 6" class="fade-in">
+    <img src="Images/photo7.jpg" alt="Memory 7" class="fade-in">
+  </div>
+</section>
+
+<section class="speech-section">
+  <h2 class="title-pop">A Little Speech For You 💌</h2>
+
+  <div class="speech-card">
+    <span class="quote-mark">“</span>
+    <p id="speechText" class="speech-text"></p>
+    <p class="signature script" id="speechSign" style="opacity:0;">— Your Brother</p>
+  </div>
+</section>
+
+<footer>Made with love, just for you 💕</footer>
+
+<script>
+// fade-in gallery images one by one on scroll
+const items = document.querySelectorAll('.fade-in');
+const obs = new IntersectionObserver(entries => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('visible'), i * 80);
+      obs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.2 });
+items.forEach(item => obs.observe(item));
+
+// typewriter speech effect, starts when section scrolls into view
+const speech = "Happy Birthday, Sister! I hope this little website made you smile even a tiny bit as much as you make me smile every day. You've grown into someone so kind, strong, and full of life, and I'm endlessly proud to call you my sister. Here's to another year of inside jokes, late-night talks, and being the best siblings ever. I love you so much, today and always.";
+const speechEl = document.getElementById('speechText');
+const signEl = document.getElementById('speechSign');
+let typed = false;
+
+function typeWriter(text, el, i = 0) {
+  if (i < text.length) {
+    el.textContent += text.charAt(i);
+    setTimeout(() => typeWriter(text, el, i + 1), 28);
+  } else {
+    signEl.style.transition = 'opacity 0.8s ease';
+    signEl.style.opacity = 1;
+  }
+}
+
+const speechObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting && !typed) {
+      typed = true;
+      typeWriter(speech, speechEl);
+      speechObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.3 });
+speechObs.observe(document.querySelector('.speech-card'));
+</script>
+
+</body>
+</html>

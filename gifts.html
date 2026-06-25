@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Open Your Gifts!</title>
+<link rel="stylesheet" href="CSS/style.css">
+</head>
+<body>
+
+<nav class="navbar">
+  <a href="index.html">🏠 Home</a>
+  <a href="gifts.html">🎁 Gifts</a>
+</nav>
+
+<section class="gifts-section">
+  <h1 class="title-pop">Click a gift to open it!</h1>
+  <p>Each one has a little surprise inside 💝</p>
+
+  <div class="gifts-grid">
+
+    <div class="gift-item">
+      <button class="gift-box" id="gift1" onclick="openGift(1)" aria-label="Open gift 1"></button>
+      <div class="gift-reveal" id="reveal1">
+        <img src="Images/photo3.jpeg" alt="Sister photo">
+        <p>Thank you for being there throughout my childhood and giving me the experience of having a sister, even though we aren't actual siblings. I’ll always be grateful for those memories ✨</p>
+      </div>
+    </div>
+
+    <div class="gift-item">
+      <button class="gift-box" id="gift2" onclick="openGift(2)" aria-label="Open gift 2"></button>
+      <div class="gift-reveal" id="reveal2">
+        <img src="Images/photo4.jpeg" alt="Sister photo">
+        <p>Your laugh is honestly the best sound ever 😂</p>
+      </div>
+    </div>
+
+    <div class="gift-item">
+      <button class="gift-box" id="gift3" onclick="openGift(3)" aria-label="Open gift 3"></button>
+      <div class="gift-reveal" id="reveal3">
+        <img src="Images/photo6.jpeg" alt="Sister photo">
+        <p>Thanks for always having my back 🫶</p>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="continue-wrap">
+  </div>
+</section>
+
+<footer>Made with love, from your brother 💕</footer>
+
+<script>
+function openGift(n) {
+  const box = document.getElementById('gift' + n);
+  box.classList.add('opened');
+  box.disabled = true;
+  document.getElementById('reveal' + n).classList.add('show');
+  launchBurst(box);
+}
+
+// little particle burst on click
+function launchBurst(el) {
+  const rect = el.getBoundingClientRect();
+  for (let i = 0; i < 14; i++) {
+    const p = document.createElement('span');
+    p.className = 'burst-particle';
+    p.textContent = ["✨","💖","🎊"][Math.floor(Math.random()*3)];
+    p.style.left = (rect.left + rect.width/2) + 'px';
+    p.style.top = (rect.top + rect.height/2) + 'px';
+    const angle = Math.random() * 2 * Math.PI;
+    const dist = 60 + Math.random()*60;
+    p.style.setProperty('--dx', Math.cos(angle)*dist + 'px');
+    p.style.setProperty('--dy', Math.sin(angle)*dist + 'px');
+    document.body.appendChild(p);
+    setTimeout(() => p.remove(), 900);
+  }
+}
+</script>
+
+</body>
+</html>
